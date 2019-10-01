@@ -71,6 +71,9 @@ const char *reqhdr_getHeaderVal(const RequestHeader *req,
 {
     unsigned i;
     const char *headerLine;
+    
+    if (req->headerCount <= 0)
+        return NULL;
 
     for(i = 0; i < req->headerCount; ++i) {
         headerLine = req->headers[i];
