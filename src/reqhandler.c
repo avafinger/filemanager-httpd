@@ -185,8 +185,8 @@ static RespBuf *doProcessRequest(RequestHandler *hdlr,
             sleep(2); /*make a possible dictionary attack harder to overcome*/
         }
         resp = printUnauthorized(reqhdr_getPath(rhdr), isHeadReq);
-    }else if( queryFileLen >= 3 && (strstr(queryFile, "/../") != NULL ||
-            !strcmp(queryFile+queryFileLen-3, "/.."))) 
+    }else if( queryFileLen >= 3 && (*queryFile != '/' || (strstr(queryFile, "/../") != NULL ||
+            !strcmp(queryFile+queryFileLen-3, "/.."))))
     {
         resp = printMesgPage(resp_cmnStatus(HTTP_403_FORBIDDEN), NULL,
                 queryFile, isHeadReq, false);
